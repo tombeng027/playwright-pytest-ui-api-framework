@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Work Order QA Demo</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Work Order QA Demo</h1>
+    <p class="notice">Personal QA project · Synthetic data · Not a production system</p>
+    <p id="error" role="alert" hidden></p>
+    <p id="feedback" role="status"></p>
+    <section id="login-panel">
+      <h2>Sign in</h2>
+      <p>Demo credentials: <code>demo</code> / <code>demo-password</code></p>
+      <form id="login-form">
+        <label>Username <input name="username" autocomplete="username" required></label>
+        <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit">Sign in</button>
+      </form>
+    </section>
+    <section id="workspace" hidden>
+      <button id="logout" type="button">Sign out</button>
+      <h2>Create work order</h2>
+      <form id="create-form">
+        <label>Title <input name="title" maxlength="500" required></label>
+        <label>Description <textarea name="description" maxlength="500" required></textarea></label>
+        <label for="customers">Customer</label>
+        <select name="customer_id" id="customers" required></select>
+        <button type="submit">Create order</button>
+      </form>
+      <h2>Work orders</h2>
+      <label for="status-filter">Filter by status</label>
+        <select id="status-filter">
+          <option value="">All statuses</option>
+          <option>Pending</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+        </select>
+      <p id="empty" hidden>No work orders match this filter.</p>
+      <div id="orders"></div>
+    </section>
+  </main>
+</body>
+</html>
