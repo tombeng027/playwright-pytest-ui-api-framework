@@ -1,6 +1,6 @@
 # Reproducibility and CI
 
-Goal 4 local verification completed October 9, 2026. Hosted CI is written but not yet executed.
+Goal 4 local and hosted verification completed October 9, 2026. Parent-workspace editor alignment remains an environment-specific follow-up, not a claim of verified discovery.
 
 ## Dependency policy
 
@@ -49,7 +49,20 @@ Replace `python` with the new venv executable. This avoids a source checkout mas
 
 The intentional browser diagnostic probe is not included in default CI. It is documented for explicit local execution. The controlled-defect verifier treats only the precise expected mutation failure as success.
 
-No CI badge or hosted-success claim until actual workflow jobs and artifacts are inspected. Ubuntu behavior remains unverified until then.
+### First hosted execution
+
+[Run 37889100220](https://github.com/tombeng027/playwright-pytest-ui-api-framework/actions/runs/37889100220), source commit `0d09aae63530533ae5f754f3d5b73ab52f6f83d1`, succeeded on both runners:
+
+| Runner | Actual Python | Default suite |
+|---|---|---|
+| Ubuntu | 3.14.8 | 56 passed in 33.85s |
+| Windows | 3.14.7 | 56 passed in 65.91s |
+
+Both jobs verified the non-editable package/assets outside the checkout and the controlled-defect baseline/mutated/restored sequence. The mutation failed for `TRANSITION_GUARD: expected 409, got 200`, not an unrelated failure.
+
+Downloaded both evidence ZIPs and verified their SHA-256 digests against GitHub's artifact metadata. Inspected default JUnit XML (56 cases, zero failures/errors/skips), separate defect XML, HTML report presence and all 55 server-backed log endings per runner (`app_stopped`). Local copies are ignored under `artifacts/hosted-ci/`; hosted retention is seven days.
+
+Passing normal runs do not generate failure-only browser traces/screenshots. Those were separately verified using the explicit local diagnostic probe, not this CI run.
 
 ## Editor setup
 
@@ -61,6 +74,6 @@ The settings file is valid, but this does not establish that the already-open pa
 
 ## Publication boundary
 
-No remote configuration, commits or pushes were performed in this step. Once the user provides the prepared GitHub URL and approves publication, inspect the remote before connecting it; do not overwrite an existing README or history.
+The local reproducibility step did not publish anything. Subsequently, the user supplied and approved [the GitHub repository](https://github.com/tombeng027/playwright-pytest-ui-api-framework). Its remote was inspected and empty before configuring `origin`, committing and pushing `main`. The first hosted run and uploaded evidence were then verified as recorded above.
 
 Review synthetic traces before sharing: they can contain demo credentials and payloads despite structured log allowlisting. Do not add real accounts or employer data.

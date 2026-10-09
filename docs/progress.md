@@ -17,8 +17,8 @@ Review: [Milestone 1](milestone-1-review.md).
 | 1. Risk-focused UI/API coverage | Complete for agreed scope | UI creation/editing, login errors, validation, filtering, completed restrictions and safe text; API boundary/negative cases and rejected-write state checks verified |
 | 2. Failure diagnostics | Complete for agreed scope | Correlated logs, browser observations, full-page screenshot/trace and server teardown verified through intentional failure |
 | 3. Defect detection | Complete for agreed scope | Unchanged transition test passed baseline/restored runs and failed mutated behavior for the precise 200-versus-409 assertion |
-| 4. Portability and CI | In progress | Pinned dependency snapshot and fresh installed-package run verified; editor guidance/workflow written; hosted Actions and parent editor alignment pending |
-| 5. Portfolio release | Pending | README, coverage map, defect example and interview walkthrough complete; publication approved and CI inspected |
+| 4. Portability and CI | Complete for agreed execution scope | Fresh installed-package run and Windows/Ubuntu Actions verified; editor guidance provided, parent workspace discovery remains unverified |
+| 5. Portfolio release | In progress | Publication approved/completed and CI evidence inspected; coverage map and interview walkthrough/presentation polish remain |
 
 ## Review decisions
 
@@ -33,9 +33,9 @@ Review: [Milestone 1](milestone-1-review.md).
 ## Outstanding limitations
 
 - Editor discovery and Pylance interpreter alignment remain unresolved in the parent workspace.
-- Only Windows, Python 3.14.3 and Chromium have been executed.
-- Version ranges currently permit dependency changes; fresh setup and reproducibility remain Goal 4 work.
-- No commits, GitHub remotes or publication yet.
+- Windows/Python 3.14.3 locally and Windows/Python 3.14.7 plus Ubuntu/Python 3.14.8 in CI are verified with Chromium. Other runtimes/browsers are not.
+- Dependency ranges require the documented constraints for reproducible versions; constraints are not a hash-verified universal lockfile.
+- Initial publication is complete; portfolio walkthrough and presentation polish remain.
 
 ## Goal 1 execution
 
@@ -135,3 +135,16 @@ Goal 4 still requires reproducible dependencies, fresh setup, editor alignment a
 - No remote, commits or pushes; actual GitHub jobs remain pending.
 
 Details and limitations: [Reproducibility and CI](reproducibility-and-ci.md).
+
+## Goal 4 hosted completion and publication
+
+The preceding local-only publication status is superseded by this checkpoint.
+
+- Inspected the user-provided empty GitHub remote, then committed and pushed `main`.
+- [Initial run 37889100220](https://github.com/tombeng027/playwright-pytest-ui-api-framework/actions/runs/37889100220) succeeded: Ubuntu/Python 3.14.8, 56 passed in 33.85s; Windows/Python 3.14.7, 56 passed in 65.91s.
+- Both jobs verified installed assets and the precise baseline/mutated/restored defect sequence.
+- Downloaded both uploaded artifacts and matched SHA-256 digests; inspected JUnit counts, defect failure identity, HTML report presence and shutdown logs.
+- Each default report contains 56 cases with zero failures/errors/skips; all 55 server-backed logs per runner end with `app_stopped`.
+- README now links verified CI and displays a live workflow badge.
+
+Next: Goal 5, a concise coverage map/interview walkthrough and profile/portfolio linking. Keep the personal-project and synthetic-demo limitations explicit. Parent-workspace editor discovery is still not claimed fixed.

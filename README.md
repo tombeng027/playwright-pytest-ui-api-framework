@@ -1,8 +1,10 @@
 # Playwright Python UI/API Framework
 
+[![QA verification](https://github.com/tombeng027/playwright-pytest-ui-api-framework/actions/workflows/qa.yml/badge.svg)](https://github.com/tombeng027/playwright-pytest-ui-api-framework/actions/workflows/qa.yml)
+
 Personal QA portfolio project: test a local, synthetic work-order application through its UI and API.
 
-**Current status:** milestone 1 and Goals 1-3 complete; Goal 4 fresh installation verified. The default suite contains 46 API, 8 UI, 1 cross-layer and 1 middleware case, including parameterized variations. CI workflow is written; hosted execution and publication remain pending.
+**Current status:** milestone 1 and Goals 1-4 complete for the agreed scope; published with verified Windows/Ubuntu CI. The default suite contains 46 API, 8 UI, 1 cross-layer and 1 middleware case, including parameterized variations. Portfolio walkthrough/presentation polish remains next.
 
 ## What this demonstrates
 
@@ -56,7 +58,7 @@ See [the business rules](docs/business-rules.md). Tests assert expected values i
 - Sessions use a synthetic fixed account, have no expiry and use non-secure cookies for localhost HTTP. Do not deploy this app publicly.
 - UI coverage includes login errors/recovery, creation/editing/logout, required and whitespace fields, filtering, completed restrictions and literal text rendering. A focused page object shares interactions while tests retain assertions.
 - API checks include boundary values, missing fields, protected endpoints, unknown customers/orders, edit restrictions and the invalid-transition matrix. Rejected writes are checked for unchanged state.
-- GitHub Actions is configured for Windows/Ubuntu with Python 3.14; hosted jobs have not run yet.
+- GitHub Actions runs on Windows/Ubuntu with Python 3.14 and Chromium; both hosted jobs are verified. Other Python versions, browsers and parallel execution are not yet verified.
 
 ## Verification
 
@@ -80,5 +82,14 @@ Goal 3 verified baseline pass, a precise failure against an explicitly injected 
 An additional regression reproduces and prevents pytest capture from re-enabling raw Uvicorn access records. The updated 56-case suite passed in 51.83s. See [access-log investigation](docs/access-log-investigation.md).
 
 A fresh non-editable install passed all 56 tests in 53.74s from outside the checkout. Installed static assets and dependency consistency were verified. See [reproducibility, CI and editor setup](docs/reproducibility-and-ci.md).
+
+The [first hosted CI run](https://github.com/tombeng027/playwright-pytest-ui-api-framework/actions/runs/37889100220) passed on both runners:
+
+| Runner | Python | Default suite | Controlled defect |
+|---|---|---|---|
+| Ubuntu | 3.14.8 | 56 passed in 33.85s | Baseline pass, exact mutation failure, restored pass |
+| Windows | 3.14.7 | 56 passed in 65.91s | Baseline pass, exact mutation failure, restored pass |
+
+Downloaded artifacts were checked against their published SHA-256 digests. Both JUnit reports have zero failures, errors or skips in the default suite; all 55 server-backed logs per runner end with `app_stopped`. HTML reports, dependency snapshots and separate defect evidence were retained. Artifact retention is seven days; the deliberate browser failure probe remains a separate local demonstration.
 
 If VS Code reports missing pytest/Playwright imports, open this repository as a workspace and select `.venv\Scripts\python.exe`. The parent labs workspace may still have another project's interpreter selected. Tests run with the explicit venv command above.
